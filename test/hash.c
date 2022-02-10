@@ -14,10 +14,10 @@ unsigned int hash(const char *word)
     return hash;
 }
 
-int main(void)
+/*int main(void)
 {
     const char  word[] = "ptippaya";
 
     printf("%d\n", hash(word));
     return (0);
-}
+}*/

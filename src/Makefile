@@ -11,7 +11,7 @@
 # **************************************************************************** #
 C_FILE = *.c
 
-OUTPUT = a.out
+OUTPUT = a.exe
 
 GCC 	= gcc -Wall -Wextra -Werror
 

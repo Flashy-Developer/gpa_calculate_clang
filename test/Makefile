@@ -12,7 +12,7 @@
 C_FILE = *.c
 C_FILE_LIB = ../src/encode.c ../src/file.c
 
-OUTPUT = a.out
+OUTPUT = a.exe
 
 GCC 	= gcc -Wall -Wextra -Werror
 

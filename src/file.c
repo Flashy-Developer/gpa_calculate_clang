@@ -1,26 +1,14 @@
 #include    "../includes/ohmylib.h"
 #define     buff_size 160
 
-unsigned int    count_line(char *filename)
+void    reset_data(t_user_data *data)
 {
-    unsigned int    line;
-    char            c;
-    FILE            *file;
-
-    file = fopen(filename, "r");
-    if (!file)
-        return (0);
-    line = 1;
-    while (1)
-    {
-        c = fgetc(file);
-        if (c == EOF)
-            break;
-        else if (c == '\n')
-            line += 1;
-    }
-    return (line);
-    fclose(file);
+    //  set all data to NULL
+    strcpy(data->email, "\0");
+    strcpy(data->user_id, "\0");
+    strcpy(data->university_id, "\0");
+    strcpy(data->major_id, "\0");
+    data->statement = 0;
 }
 
 int check_data(char *str, char c, int word_count)
@@ -36,7 +24,6 @@ int check_data(char *str, char c, int word_count)
             count++;
         i++;
     }
-    printf("count = %d\n", count);
     if (count == word_count)
         return (1);
     else
@@ -65,21 +52,19 @@ int init_data(char *str, t_user_data *data)
 
 int     load_data(char *email, char *filename, t_user_data *data)
 {
-    int     line;
     char    buff_read[buff_size];
     FILE    *file;
 
-    line = count_line(filename);
     file = fopen(filename, "r");
-    if (!file || !line)
+    if (!file)
         return (0);
-    for (int i = 0; i < line; i++)
+    while (!feof(file))
     {
-        fgets(buff_read, buff_size - 1, file);
+        fscanf(file, "%s", buff_read);
         if (!strncmp(email, buff_read, strlen(email)))
         {
-            if(init_data(buff_read, data))
-                return(1);
+            init_data(buff_read, data);
+            return(1);
         }
     }
     fclose(file);

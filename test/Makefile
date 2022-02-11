@@ -19,7 +19,7 @@ GCC 	= gcc -Wall -Wextra -Werror
 all:
 	@cls
 	@echo ------------------------- Source -------------------------
-	@echo function file: ${C_FILE}
+	@echo function file: ${C_FILE} ${C_FILE_LIB} 
 	@echo ---------------------- GCC COMPLIER ----------------------
 	@${GCC} ${C_FILE} ${C_FILE_LIB} -o ${OUTPUT}
 	@echo ----------------------- GCC OUTPUT -----------------------

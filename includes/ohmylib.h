@@ -14,9 +14,10 @@ typedef struct s_user_data
 }  t_user_data;
 
 int   find_index(char c, char *str);
+int   remove_broken_data(char *filename);
 int   check_data(char *str, char c, int num);
-int   init_data(char *str, t_user_data *data);
-int   load_data(char *email, char *filename, t_user_data *data);
+int   load_data(char *str, t_user_data *data);
+int   find_data(char *email, char *filename, t_user_data *data);
 char  *keygen();
 char  *encode(char *word, char *key);
 void  reset_data(t_user_data *data);

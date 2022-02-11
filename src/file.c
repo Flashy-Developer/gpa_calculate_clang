@@ -1,5 +1,4 @@
 #include    "../includes/ohmylib.h"
-#define     buff_size 160
 
 void    reset_data(t_user_data *data)
 {
@@ -30,13 +29,13 @@ int check_data(char *str, char c, int word_count)
         return (0);
 }
 
-int init_data(char *str, t_user_data *data)
+int load_data(char *str, t_user_data *data)
 {
     char    *read_data;
     char    *rest = str;
 
     if (!check_data(str, ',', 4))
-        return (0);
+        return (2);
     read_data = strtok_s(rest, ",", &rest);
     strcpy(data->email, read_data);
     read_data = strtok_s(rest, ",", &rest);
@@ -50,9 +49,9 @@ int init_data(char *str, t_user_data *data)
     return (1);
 }
 
-int     load_data(char *email, char *filename, t_user_data *data)
+int find_data(char *email, char *filename, t_user_data *data)
 {
-    char    buff_read[buff_size];
+    char    buff_read[sizeof(t_user_data)];
     FILE    *file;
 
     file = fopen(filename, "r");
@@ -62,11 +61,38 @@ int     load_data(char *email, char *filename, t_user_data *data)
     {
         fscanf(file, "%s", buff_read);
         if (!strncmp(email, buff_read, strlen(email)))
-        {
-            init_data(buff_read, data);
-            return(1);
-        }
+            return(load_data(buff_read, data));
     }
     fclose(file);
     return (0);
+}
+
+int    remove_broken_data(char *filename)
+{
+    char    buff_read[sizeof(t_user_data)];
+    char    file_buff[] = "buff_read.txt";
+    FILE    *file_read;
+    FILE    *file_write;
+
+    rename(filename, file_buff);
+    file_read = fopen(file_buff, "r");
+    file_write = fopen(filename, "w+");
+    if (!file_read)
+    {
+        fclose(file_read);
+        fclose(file_write);
+        return (0);
+    }
+    while (!feof(file_read))
+    {
+        fscanf(file_read, "%s", buff_read);
+        if (check_data(buff_read, ',', 4))
+            fprintf(file_write, "%s\n", buff_read);
+    }
+    fclose(file_read);
+    fclose(file_write);
+    if(remove(file_buff))
+        return (1);
+    else
+        return (0);
 }

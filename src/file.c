@@ -85,7 +85,8 @@ int    remove_broken_data(char *filename)
     }
     while (!feof(file_read))
     {
-        fscanf(file_read, "%s", buff_read);
+        fscanf(file_read, "%s\n", buff_read);
+        printf("%s$\n", buff_read);
         if (check_data(buff_read, ',', 4))
             fprintf(file_write, "%s\n", buff_read);
     }

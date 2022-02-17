@@ -1,8 +1,8 @@
-#include    "../includes/ohmylib.h"
+#include	"../includes/ohmylib.h"
 
-int     main(void)
+int	main(void)
 {
-    t_user_data     testdata;
+    t_user_data	testdata;
 
     reset_data(&testdata);
     remove_broken_data("text.txt");

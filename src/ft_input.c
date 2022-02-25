@@ -95,10 +95,12 @@ void	show_grade(t_student_data *data)
 {
 	for(size_t i = 0; i < 10 && *data->subject[i]; i++)
 	{
-		printf("Subject Name %ld : %s \n",i+1,data->subject[i]);
-		printf("Subject %ld Grade : %.2f \n",i+1,data->grade[i]);
-		printf("Subject %ld Credit : %.2f \n",i+1,data->credit[i]);
+		printf("\n---------------- SUBJECT %ld ----------------\n", i + 1);
+		printf("Subject Name :\t\t%s\n", data->subject[i]);
+		printf("Subject Grade :\t\t%.2f\n", data->grade[i]);
+		printf("Subject Credit :\t%.2f\n", data->credit[i]);
 	}
+	printf("\n-------------------------------------------\n");
 }
 
 void	add_grade(t_student_data *stu_data)
@@ -123,7 +125,7 @@ void	add_grade(t_student_data *stu_data)
 		do
 		{
 			show_grade(stu_data);
-			printf("Would you like to add more subject (Y/N) ?:\n");
+			printf("\nWould you like to add more subject (Y/N) ?:\n");
 			answer = tolower(getchar());
 			clear();
 		}

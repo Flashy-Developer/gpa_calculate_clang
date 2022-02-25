@@ -18,7 +18,7 @@
 #include	<string.h>
 #include	<ctype.h>
 
-typedef struct	s_student_infomation
+typedef struct	s_student_data
 {
 	char	student_id[11];
 	char	subject[11][31];
@@ -26,13 +26,22 @@ typedef struct	s_student_infomation
 	float	credit[11];
 }	t_student_data;
 
-void	reset_data(t_student_data *data);
+typedef struct	s_avg_data
+{
+	char	student_id[11];
+	float	grade;
+	float	credit;
+}	t_avg_data;
+
 int		check_student_id(char *dest);
 int		check_subject_grade(float *dest);
 int		check_subject_credit(float *dest);
 int		check_str(char *dest, size_t size);
+int		load_data(char *raw_data, char *user_id, t_student_data *data);
+int		read_file(char *filename, char *user_id, t_student_data *data);
 void	show_grade(t_student_data *data);
+void	reset_data(t_student_data *data);
 void	add_grade(t_student_data *stu_data);
-void	print_file(t_student_data *stu_data);
+void	print_file(char *filename, t_student_data *stu_data);
 
 #endif

@@ -9,27 +9,38 @@
 #    Updated: 2022/01/31 10:41:54 by ptippaya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-PURPLE	= \033[1;35m
-RED	= \033[1;31m
-CYAN	= \033[1;36m
-NC	= \033[0m
 
-C_FILE = $(shell find . -type f -name '*.c')
-
+C_NOT_MAIN = $(shell find . -type f -name 'ft_*.c')
+C_MAIN = $(shell find . -type f -name 'main.c')
+C_TEST = $(shell find . -type f -name 'test.c')
 
 OUTPUT = a.out
 
 NORM	= norminette -R CheckForbiddenSourceHeader
 GCC 	= gcc -Wall -Wextra -Werror
 
+$(OUTPUT): all
+
 all:
 	@clear
-	@echo "${RED}------------------------- Source -------------------------\n"
-	@echo "function file: ${C_FILE}\n"
-	@echo "${CYAN}\n----------------------- GCC OUTPUT -----------------------\n"
-	@${GCC} ${C_FILE} -o ${OUTPUT}
+	@printf '\x1b[38;5;198m------------------------- Source -------------------------\n\n\e[0m'
+	@echo "function file: ${C_MAIN} ${C_NOT_MAIN}\n"
+	@printf '\x1b[38;5;128m----------------------- GCC OUTPUT -----------------------\n\n\e[0m'
+	@${GCC} ${C_MAIN} ${C_NOT_MAIN} -o ${OUTPUT}
 	@echo "OUTPUT FILE: ${OUTPUT}"
 	@echo ""
 	@./${OUTPUT}
 	@rm ${OUTPUT}
-	@echo "\n----------------------------------------------------------${NC}\n"
+	@printf '\x1b[38;5;43m\n-------------------------- STOP --------------------------\n\e[0m'
+
+test:
+	@clear
+	@printf '\x1b[38;5;198m------------------------- Source -------------------------\n\n\e[0m'
+	@echo "function file: ${C_TEST} ${C_NOT_MAIN}\n"
+	@printf '\x1b[38;5;128m----------------------- GCC OUTPUT -----------------------\n\n\e[0m'
+	@${GCC} ${C_TEST} ${C_NOT_MAIN} -o ${OUTPUT}
+	@echo "OUTPUT FILE: ${OUTPUT}"
+	@echo ""
+	@./${OUTPUT}
+	@rm ${OUTPUT}
+	@printf '\x1b[38;5;43m\n-------------------------- STOP --------------------------\n\n\e[0m'

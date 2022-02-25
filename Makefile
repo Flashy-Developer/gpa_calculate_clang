@@ -16,9 +16,8 @@ NC	= \033[0m
 
 C_FILE = $(shell find . -type f -name '*.c')
 
-C_NOT_MAIN = $(shell find . -type f -name 'ft_*.c')
 
-OUTPUT = c.out
+OUTPUT = a.out
 
 NORM	= norminette -R CheckForbiddenSourceHeader
 GCC 	= gcc -Wall -Wextra -Werror
@@ -26,15 +25,11 @@ GCC 	= gcc -Wall -Wextra -Werror
 all:
 	@clear
 	@echo "${RED}------------------------- Source -------------------------\n"
-	@echo "function file: ${C_NOT_MAIN}\n"
-	@cat ${C_NOT_MAIN}
-	@echo "${PURPLE}\n----------------------- Norminette -----------------------\n"
-	@${NORM} ${C_NOT_MAIN}
+	@echo "function file: ${C_FILE}\n"
 	@echo "${CYAN}\n----------------------- GCC OUTPUT -----------------------\n"
 	@${GCC} ${C_FILE} -o ${OUTPUT}
 	@echo "OUTPUT FILE: ${OUTPUT}"
 	@echo ""
 	@./${OUTPUT}
+	@rm ${OUTPUT}
 	@echo "\n----------------------------------------------------------${NC}\n"
-norm:
-	${NORM} ${SRCS}

@@ -1,25 +1,38 @@
-#ifndef  OHMYLIB_H
-#define  OHMYLIB_H
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ohmylib.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptippaya <ptippaya@student.42bangkok.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/25 17:46:01 by ptippaya          #+#    #+#             */
+/*   Updated: 2022/02/25 17:46:01 by ptippaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct s_user_data
+#ifndef	OHMYLIB_H	/* check if not define ohmylib.h */
+#define	OHMYLIB_H	/* define ohmylib.h */
+# define clear() system("clear")
+#include	<stdio.h>
+#include	<stdlib.h>
+#include	<string.h>
+#include	<ctype.h>
+
+typedef struct	s_student_infomation
 {
-   char  email[50];
-   char  user_id[60];
-   char  university_id[5];
-   char  major_id[44];
-   int   statement;
-}  t_user_data;
+	char	student_id[11];
+	char	subject[11][31];
+	float	grade[11];
+	float	credit[11];
+}	t_student_data;
 
-int   find_index(char c, char *str);
-int   remove_broken_data(char *filename);
-int   check_data(char *str, char c, int num);
-int   load_data(char *str, t_user_data *data);
-int   find_data(char *email, char *filename, t_user_data *data);
-char  *keygen();
-char  *encode(char *word, char *key);
-void  reset_data(t_user_data *data);
+void	reset_data(t_student_data *data);
+int		check_student_id(char *dest);
+int		check_subject_grade(float *dest);
+int		check_subject_credit(float *dest);
+int		check_str(char *dest, size_t size);
+void	show_grade(t_student_data *data);
+void	add_grade(t_student_data *stu_data);
+void	print_file(t_student_data *stu_data);
 
 #endif

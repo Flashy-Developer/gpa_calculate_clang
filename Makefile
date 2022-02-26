@@ -30,8 +30,6 @@ all:
 	@echo "OUTPUT FILE: ${OUTPUT}"
 	@echo ""
 	@./${OUTPUT}
-	@rm ${OUTPUT}
-	@printf '\x1b[38;5;43m\n-------------------------- STOP --------------------------\n\e[0m'
 
 test:
 	@clear
@@ -42,5 +40,6 @@ test:
 	@echo "OUTPUT FILE: ${OUTPUT}"
 	@echo ""
 	@./${OUTPUT}
-	@rm ${OUTPUT}
-	@printf '\x1b[38;5;43m\n-------------------------- STOP --------------------------\n\n\e[0m'
+
+clear:
+	@rm $(shell find . -type f -name '*.out') $(shell find . -type f -name '*.txt') $(shell find . -type f -name '*.exe')

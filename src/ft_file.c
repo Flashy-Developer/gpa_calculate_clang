@@ -69,3 +69,27 @@ int	read_file(char *filename, char *user_id, t_student_data *data)
 	fclose(file);
 	return (found);
 }
+
+void	remove_data()
+{
+	FILE	*new_file, *old_file;
+	char 	buff_file[] = "buff.txt";
+	char	buff[sizeof(t_student_data) + 10 + 1];	// size of struct t_student_data + size of float(char) x 2 + end byte
+	char	id[11];
+
+	while (!check_student_id(id))
+		printf("\x1b[38;5;220mError, please Enter Student ID!\e[0m\n");
+
+	rename(FILENAME, buff_file);
+	old_file = fopen(buff_file, "r");
+	new_file = fopen(FILENAME, "w+");
+	while (!feof(old_file))
+	{
+		fscanf(old_file, "%s\n", buff);
+		if (strncmp(id, buff, 10))	// if string id and buff is equal it will return 0 (False)
+			fprintf(new_file, "%s\n", buff);
+	}
+	fclose(old_file);
+	fclose(new_file);
+	remove(buff_file);
+}

@@ -1,15 +1,5 @@
 #include	"../includes/ohmylib.h"
 
-void	reset_data(t_student_data *data)
-{
-	memset(data->student_id, 0, 11);
-	for (size_t i = 0; i < 10; i++)
-	{
-		memset(data->subject[i], 0, 31);
-		data->grade[i] = 0;
-		data->credit[i] = 0;
-	}
-}
 
 int	check_student_id(char *dest)
 {
@@ -24,6 +14,7 @@ int	check_student_id(char *dest)
 	strcpy(dest, id);
 	return (1);
 }
+
 
 int	check_subject_grade(float *dest)
 {
@@ -46,6 +37,7 @@ int	check_subject_grade(float *dest)
 	}
 	return (0);
 }
+
 
 int	check_subject_credit(float *dest)
 {
@@ -93,65 +85,40 @@ int	check_str(char *dest, size_t size)
 
 void	show_grade(t_student_data *data)
 {
+
+	clear();
 	for(size_t i = 0; i < 10 && *data->subject[i]; i++)
 	{
-		printf("\n---------------- SUBJECT %ld ----------------\n", i + 1);
+		printf("\n------------- SUBJECT %ld -------------\n", i + 1);
 		printf("Subject Name :\t\t%s\n", data->subject[i]);
 		printf("Subject Grade :\t\t%.2f\n", data->grade[i]);
 		printf("Subject Credit :\t%.2f\n", data->credit[i]);
 	}
-	printf("\n-------------------------------------------\n");
+	printf("\n------------------------------------\n");
 }
 
-void	add_grade(t_student_data *stu_data)
+void	print_menu(void)
 {
-	char	answer;		/*	answer to continue	*/
-
-	answer = 0;
-	while (!check_student_id(stu_data->student_id))
-		printf("Error Try again!\n");
-	printf("Student ID : %s\n", stu_data->student_id);
-
-	for(size_t i = 0; i < 10; i++)
-	{
-		while (!check_str(stu_data->subject[i], 30))
-			printf("Error Try again!\n");
-		printf("Subject %ld : %s\n", i+1,stu_data->subject[i]);
-		while (!check_subject_grade(&stu_data->grade[i]))
-			printf("Error Try again!\n");
-		while (!check_subject_credit(&stu_data->credit[i]))
-			printf("Error Try again!\n");
-		clear();
-		do
-		{
-			show_grade(stu_data);
-			printf("\nWould you like to add more subject (Y/N) ?:\n");
-			answer = tolower(getchar());
-			clear();
-		}
-		while (tolower(answer) != 'n' && tolower(answer) != 'y');
-		if (answer == 'n')
-			break;
-	}
-	show_grade(stu_data);
+	printf("\x1b[38;5;81m-------- Select the Process --------\e[0m\n");
+	printf("\n");
+	printf("\t1: add data\n");
+	printf("\t2: calculate data\n");
+	printf("\t3: remove data\n");
+	printf("\t4: exit\n");
+	printf("\n------------------------------------\n");
+	printf("\n");
 }
 
-int calculate_grade(t_avg_data *dest, t_student_data src)
+int	select_menu(void)
 {
-	size_t	i;
-	float	total;
-	float	credit;
+	int	c;
 
-	credit = 0;
-	total = 0; 
-	i = 0;
-	while (i < 10 && src.subject[i][0] != 0)
-	{
-		total += (src.grade[i] * src.credit[i]);
-		credit += src.credit[i];
-		i++;
-	}
-	dest->grade = total / credit;
-	dest->credit = credit;
-	return (0);
+	c = 0;
+	print_menu();
+	printf("Enter Choice : ");
+	scanf("%d", &c);
+	if (1 <= c && c <= 4)
+		return (c);
+	else
+		return (0);
 }

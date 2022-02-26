@@ -12,11 +12,19 @@
 
 #ifndef	OHMYLIB_H	/* check if not define ohmylib.h */
 #define	OHMYLIB_H	/* define ohmylib.h */
-# define clear() system("clear")
 #include	<stdio.h>
 #include	<stdlib.h>
 #include	<string.h>
 #include	<ctype.h>
+
+#ifdef _WIN32
+# define clear()	system("cls")
+#else
+# define clear()	system("clear")
+#endif
+
+#define	sleep()		system("sleep 1");
+#define	FILENAME	"data.txt"
 
 typedef struct	s_student_data
 {
@@ -33,16 +41,20 @@ typedef struct	s_avg_data
 	float	credit;
 }	t_avg_data;
 
+int		calculate(void);
+int		select_menu(void);
 int		check_student_id(char *dest);
 int		check_subject_grade(float *dest);
 int		check_subject_credit(float *dest);
 int		check_str(char *dest, size_t size);
-int		calculate_grade(t_avg_data *dest, t_student_data src);
 int		load_data(char *raw_data, char *user_id, t_student_data *data);
 int		read_file(char *filename, char *user_id, t_student_data *data);
+void	print_menu(void);
+void	remove_data();
 void	show_grade(t_student_data *data);
 void	reset_data(t_student_data *data);
 void	add_grade(t_student_data *stu_data);
 void	print_file(char *filename, t_student_data *stu_data);
+void	calculate_grade(t_avg_data *dest, t_student_data src);
 
 #endif

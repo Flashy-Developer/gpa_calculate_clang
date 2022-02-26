@@ -135,3 +135,23 @@ void	add_grade(t_student_data *stu_data)
 	}
 	show_grade(stu_data);
 }
+
+int calculate_grade(t_avg_data *dest, t_student_data src)
+{
+	size_t	i;
+	float	total;
+	float	credit;
+
+	credit = 0;
+	total = 0; 
+	i = 0;
+	while (i < 10 && src.subject[i][0] != 0)
+	{
+		total += (src.grade[i] * src.credit[i]);
+		credit += src.credit[i];
+		i++;
+	}
+	dest->grade = total / credit;
+	dest->credit = credit;
+	return (0);
+}

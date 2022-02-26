@@ -37,6 +37,7 @@ int		check_student_id(char *dest);
 int		check_subject_grade(float *dest);
 int		check_subject_credit(float *dest);
 int		check_str(char *dest, size_t size);
+int		calculate_grade(t_avg_data *dest, t_student_data src);
 int		load_data(char *raw_data, char *user_id, t_student_data *data);
 int		read_file(char *filename, char *user_id, t_student_data *data);
 void	show_grade(t_student_data *data);

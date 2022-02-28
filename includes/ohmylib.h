@@ -44,19 +44,19 @@ int		remove_data();
 int		calculate(void);
 int		select_menu(void);
 int		check_student_id(char *dest);
+int		check_subject_name(char *dest);
 int		check_subject_grade(float *dest);
 int		check_subject_credit(float *dest);
-int		check_subject_name(char *dest, size_t size);
 int		load_data(char *raw_data, char *user_id, t_student_data *data);
 int		find_data(char *filename, char *user_id, t_student_data *data);
+void	add_grade();
 void	print_welcome();
 void	print_menu(void);
 void	print_header(char *str);
 void	show_grade(t_student_data *data);
 void	reset_data(t_student_data *data);
-void	add_grade(t_student_data *stu_data);
 void	print_color(char *str, unsigned char color);
-void	write_file(char *filename, t_student_data *stu_data);
+void	write_file(char *filename, t_student_data stu_data);
 void	calculate_grade(t_avg_data *dest, t_student_data src);
 
 #endif

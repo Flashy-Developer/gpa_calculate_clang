@@ -11,38 +11,40 @@ void	reset_data(t_student_data *data)
 	}
 }
 
-void	add_grade(t_student_data *stu_data)
+void	add_grade()
 {
+	t_student_data stu_data;
 	char	answer;		/*	answer to continue	*/
 	char	show_id[35]; bzero(show_id, 35);
 
 	clear();
+	reset_data(&stu_data);
 	print_header("Add Grade");
 	print_color("\nPlease Enter Student ID that you want to add data.\n", 43);
 	print_color("*if you have added Grade with same ID, You MUST Delete Grade before!\n\n", 191);
 
 	answer = 'y';
-	while (!check_student_id(stu_data->student_id))
+	while (!check_student_id(stu_data.student_id))
 		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
-	sprintf(show_id, "Add Grade Student ID : %s", stu_data->student_id);
+	sprintf(show_id, "Add Grade Student ID : %s", stu_data.student_id);
 
 	for(size_t i = 0; i < 10 && answer == 'y'; i++)
 	{
 		clear();
 		print_header(show_id);
 		puts("");
-		while (!check_subject_name(stu_data->subject[i], 30))
+		while (!check_subject_name(stu_data.subject[i]))
 			print_color("Error, please Enter Subject name! (Maximum 30 Alphabet)\n", 220);
-		while (!check_subject_grade(&stu_data->grade[i]))
+		while (!check_subject_grade(&stu_data.grade[i]))
 			print_color("Error, please Enter Grade(float) only! (0.00 to 4.00)\n",220);
-		while (!check_subject_credit(&stu_data->credit[i]))
+		while (!check_subject_credit(&stu_data.credit[i]))
 			print_color("Error, please Enter Credit(float) only! (0.00 to 10.00)\n",220);
 		do
 		{
 			clear();
 			print_header(show_id);
 			puts("");
-			show_grade(stu_data);
+			show_grade(&stu_data);
 			printf("\nWould you like to add more subject (Y/N) ?:\n");
 			answer = tolower(getchar());
 		}
@@ -51,7 +53,8 @@ void	add_grade(t_student_data *stu_data)
 	clear();
 	print_header(show_id);
 	puts("");
-	show_grade(stu_data);
+	show_grade(&stu_data);
+	write_file(FILENAME, stu_data);
 	print_color("\nAdd Grade Complete!\n\n", 35);
 }
 

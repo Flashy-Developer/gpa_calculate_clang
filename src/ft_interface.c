@@ -49,6 +49,21 @@ int	check_student_id(char *dest)
 	return (1);
 }
 
+int	check_subject_name(char *dest)
+{
+	char	buffer[51];
+
+	bzero(buffer, 51);
+	printf("Enter Subject Name :\t");
+	scanf("%s", buffer);
+	if (strlen(buffer) > 30)
+		return (0);
+	else
+	{
+		strcpy(dest, buffer);
+		return (1);
+	}
+}
 
 int	check_subject_grade(float *dest)
 {
@@ -95,28 +110,6 @@ int	check_subject_credit(float *dest)
 	return (0);
 }
 
-int	check_subject_name(char *dest, size_t size)
-{
-	char	*buffer;
-
-	buffer = (char *) malloc (sizeof(char) * (size + 1));
-	if (!buffer)
-		return (0);
-	printf("Enter Subject Name :\t");
-	scanf("%s", buffer);
-	if (size < strlen(buffer))
-	{
-		free(buffer);
-		return (0);
-	}
-	else
-	{
-		strcpy(dest, buffer);
-		free(buffer);
-		return (1);
-	}
-}
-
 void	show_grade(t_student_data *data)
 {
 	for(size_t i = 0; i < 10 && *data->subject[i]; i++)
@@ -137,7 +130,7 @@ void	print_menu(void)
 	printf("\t2: Calculate GPA\n");
 	printf("\t3: Remove Data\n");
 	printf("\t4: exit\n");
-	printf("\n----------------------------------------------------------------\n");
+	print_color("\n----------------------------------------------------------------\n", 81);
 	printf("\n");
 }
 
@@ -160,11 +153,12 @@ int	select_menu(void)
 	return(0);
 }
 
+#ifndef _WIN32
 void	print_welcome()
 {
 	char LOADING[] = "\n\n\
-      █░░ █▀█ ▄▀█ █▀▄ █ █▄░█ █▀▀ ░ ░ ░\n\
-      █▄▄ █▄█ █▀█ █▄▀ █ █░▀█ █▄█ ▄ ▄ ▄\n\n\n";
+                █░░ █▀█ ▄▀█ █▀▄ █ █▄░█ █▀▀ ░ ░ ░\n\
+                █▄▄ █▄█ █▀█ █▄▀ █ █░▀█ █▄█ ▄ ▄ ▄\n\n\n";
 	char GPA_CALCULATOR[] = "\n\n\
       █▀▀ █▀█ ▄▀█  █▀▀ ▄▀█ █░░ █▀▀ █░█ █░░ ▄▀█ ▀█▀ █▀█ █▀█\n\
       █▄█ █▀▀ █▀█  █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▄▄ █▀█ ░█░ █▄█ █▀▄\n\n\n";
@@ -175,3 +169,9 @@ void	print_welcome()
 	clear();
 	print_color(GPA_CALCULATOR, 162);
 }
+#else
+void print_welcome()
+{
+	print_header("GPA CALCULATOR");
+}
+#endif

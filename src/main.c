@@ -5,12 +5,11 @@
 /*                                                           */
 /*************************************************************/
 
-#include	"../includes/ohmylib.h"
+#include	"../includes/ohmylib.h"		/* include library */
 
 int main(void)
 {
-	t_student_data	data;
-	int				choice;
+	int	choice;
 
 	clear();
 	print_welcome();
@@ -24,9 +23,7 @@ int main(void)
 		switch (choice)
 		{
 			case 1:
-				reset_data(&data);
-				add_grade(&data);
-				write_file(FILENAME, &data);
+				add_grade();
 				break;
 
 			case 2:

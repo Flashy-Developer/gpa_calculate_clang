@@ -40,9 +40,9 @@ typedef struct	s_avg_data
 	float	credit;
 }	t_avg_data;
 
-int		remove_data();
 int		calculate(void);
 int		select_menu(void);
+int		remove_data(char id[11]);
 int		check_student_id(char *dest);
 int		check_subject_name(char *dest);
 int		check_subject_grade(float *dest);

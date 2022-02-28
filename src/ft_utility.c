@@ -20,14 +20,13 @@ void	add_grade()
 	clear();
 	reset_data(&stu_data);
 	print_header("Add Grade");
-	print_color("\nPlease Enter Student ID that you want to add data.\n", 43);
-	print_color("*if you have added Grade with same ID, You MUST Delete Grade before!\n\n", 191);
+	print_color("\nPlease Enter Student ID that you want to add data.\n\n", 43);
 
 	answer = 'y';
 	while (!check_student_id(stu_data.student_id))
 		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
 	sprintf(show_id, "Add Grade Student ID : %s", stu_data.student_id);
-
+	remove_data(stu_data.student_id);
 	for(size_t i = 0; i < 10 && answer == 'y'; i++)
 	{
 		clear();
@@ -111,20 +110,26 @@ int	calculate(void)
 	}
 }
 
-int	remove_data()
+int	remove_data(char *id)
 {
+
 	t_student_data	temp;
 	FILE			*new_file, *old_file;
 	char 			buff_file[] = "buff.txt";
 	char			buff[sizeof(t_student_data) + 10 + 1];	// size of struct t_student_data + size of float(char) x 2 + end byte
-	char			id[11]; bzero(id, 11);
 
-	clear();
-	print_header("Remove Grade");
-	print_color("\nPlease Enter Student ID that you want to Delete data.\n\n", 43);
+	if (!*id)
+	{
+		clear();
+		print_header("Remove Grade");
+		print_color("\nPlease Enter Student ID that you want to Delete data.\n\n", 43);
 
-	while (!check_student_id(id))
-		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
+		id = (char *) malloc (sizeof(char *) * 11);
+		if (!id)
+			return (0);
+		while (!check_student_id(id))
+			print_color("Error, please Enter Student ID! (10 digit)\n", 220);
+	}
 	if (find_data(FILENAME, id, &temp))
 	{
 		rename(FILENAME, buff_file);

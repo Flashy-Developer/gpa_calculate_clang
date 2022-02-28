@@ -31,7 +31,7 @@ int main(void)
 				break;
 
 			case 3:
-				remove_data();
+				remove_data("\0");
 				break;
 
 			case 4:

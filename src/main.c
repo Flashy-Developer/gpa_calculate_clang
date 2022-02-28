@@ -1,3 +1,10 @@
+/*************************************************************/
+/*                                                           */
+/*   █▀▀ █▀█ ▄▀█ █ █▀▀ ▄▀█ █░░ █▀▀ █░█ █░░ ▄▀█ ▀█▀ █▀█ █▀█   */
+/*   █▄█ █▀▀ █▀█ ▄ █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▄▄ █▀█ ░█░ █▄█ █▀▄   */
+/*                                                           */
+/*************************************************************/
+
 #include	"../includes/ohmylib.h"
 
 int main(void)
@@ -6,17 +13,18 @@ int main(void)
 	int				choice;
 
 	clear();
-	reset_data(&data);
+	print_welcome();
 	while (1)
 	{
 		while (!(choice = select_menu()))
 		{
 			clear();
-			print_color("Error, please Enter number 1 to 4 only!\n", 198);
+			print_color("\nError, please Enter number 1 to 4 only!\n\n", 198);
 		}
 		switch (choice)
 		{
 			case 1:
+				reset_data(&data);
 				add_grade(&data);
 				write_file(FILENAME, &data);
 				break;

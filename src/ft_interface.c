@@ -56,7 +56,7 @@ int	check_subject_grade(float *dest)
 	size_t	i;
 
 	i = 0;
-	printf("Enter Subject Grade : ");
+	printf("Enter Subject Grade :\t");
 	scanf("%s", src);
 	for (i = 0; i < 21 && src[i]; i++)
 		if (!(isdigit(src[i]) || src[i] == '.'))
@@ -79,7 +79,7 @@ int	check_subject_credit(float *dest)
 	size_t	i;
 
 	i = 0;
-	printf("Enter Subject Credit : ");
+	printf("Enter Subject Credit :\t");
 	scanf("%s", src);
 	for (i = 0; i < 21 && src[i]; i++)
 		if (!(isdigit(src[i]) || src[i] == '.'))
@@ -102,7 +102,7 @@ int	check_subject_name(char *dest, size_t size)
 	buffer = (char *) malloc (sizeof(char) * (size + 1));
 	if (!buffer)
 		return (0);
-	printf("Enter Subject Name : ");
+	printf("Enter Subject Name :\t");
 	scanf("%s", buffer);
 	if (size < strlen(buffer))
 	{
@@ -121,23 +121,23 @@ void	show_grade(t_student_data *data)
 {
 	for(size_t i = 0; i < 10 && *data->subject[i]; i++)
 	{
-		printf("------------- SUBJECT %ld -------------\n", i + 1);
+		printf("-------------------------- SUBJECT %d ---------------------------\n", (int) i + 1);
 		printf("Subject Name :\t\t%s\n", data->subject[i]);
 		printf("Subject Grade :\t\t%.2f\n", data->grade[i]);
-		printf("Subject Credit :\t%.2f\n", data->credit[i]);
+		printf("Subject Credit :\t%.2f\n\n", data->credit[i]);
 	}
-	printf("\n------------------------------------\n");
+	printf("----------------------------------------------------------------\n");
 }
 
 void	print_menu(void)
 {
-	print_color("-------- Select the Process --------\n", 81);
+	print_color("---------------------- Select the Process ----------------------\n", 81);
 	printf("\n");
-	printf("\t1: add data\n");
-	printf("\t2: calculate data\n");
-	printf("\t3: remove data\n");
+	printf("\t1: Add Data\n");
+	printf("\t2: Calculate GPA\n");
+	printf("\t3: Remove Data\n");
 	printf("\t4: exit\n");
-	printf("\n------------------------------------\n");
+	printf("\n----------------------------------------------------------------\n");
 	printf("\n");
 }
 
@@ -158,4 +158,20 @@ int	select_menu(void)
 	if (1 <= c && c <= 4)
 		return (c);
 	return(0);
+}
+
+void	print_welcome()
+{
+	char LOADING[] = "\n\n\
+      █░░ █▀█ ▄▀█ █▀▄ █ █▄░█ █▀▀ ░ ░ ░\n\
+      █▄▄ █▄█ █▀█ █▄▀ █ █░▀█ █▄█ ▄ ▄ ▄\n\n\n";
+	char GPA_CALCULATOR[] = "\n\n\
+      █▀▀ █▀█ ▄▀█  █▀▀ ▄▀█ █░░ █▀▀ █░█ █░░ ▄▀█ ▀█▀ █▀█ █▀█\n\
+      █▄█ █▀▀ █▀█  █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▄▄ █▀█ ░█░ █▄█ █▀▄\n\n\n";
+
+	clear();
+	print_color(LOADING, 214);
+	system("sleep 0.6");
+	clear();
+	print_color(GPA_CALCULATOR, 162);
 }

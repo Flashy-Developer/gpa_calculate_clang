@@ -23,7 +23,7 @@ void	add_grade(t_student_data *stu_data)
 
 	answer = 'y';
 	while (!check_student_id(stu_data->student_id))
-		print_color("Error, please Enter Student ID!\n", 220);
+		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
 	sprintf(show_id, "Add Grade Student ID : %s", stu_data->student_id);
 
 	for(size_t i = 0; i < 10 && answer == 'y'; i++)
@@ -33,7 +33,6 @@ void	add_grade(t_student_data *stu_data)
 		puts("");
 		while (!check_subject_name(stu_data->subject[i], 30))
 			print_color("Error, please Enter Subject name! (Maximum 30 Alphabet)\n", 220);
-		printf("Subject %ld : %s\n", i+1,stu_data->subject[i]);
 		while (!check_subject_grade(&stu_data->grade[i]))
 			print_color("Error, please Enter Grade(float) only! (0.00 to 4.00)\n",220);
 		while (!check_subject_credit(&stu_data->credit[i]))
@@ -47,7 +46,7 @@ void	add_grade(t_student_data *stu_data)
 			printf("\nWould you like to add more subject (Y/N) ?:\n");
 			answer = tolower(getchar());
 		}
-		while (answer != 'n' && answer != 'y');
+		while (answer != 'n' && answer != 'y' && i + 1 < 10);
 	}
 	clear();
 	print_header(show_id);
@@ -87,7 +86,7 @@ int	calculate(void)
 	print_color("\nPlease Enter Student ID that you want to calculate.\n\n", 43);
 	reset_data(&data);
 	while (!check_student_id(data.student_id))
-		print_color("Error, please Enter Student ID!\n", 220);
+		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
 	sprintf(show_id, "Calculate Grade Student ID : %s", data.student_id);
 	if (find_data(FILENAME, data.student_id, &data))
 	{
@@ -109,28 +108,30 @@ int	calculate(void)
 	}
 }
 
-void	remove_data()
+int	remove_data()
 {
 	t_student_data	temp;
 	FILE			*new_file, *old_file;
 	char 			buff_file[] = "buff.txt";
 	char			buff[sizeof(t_student_data) + 10 + 1];	// size of struct t_student_data + size of float(char) x 2 + end byte
-	char			id[11];
+	char			id[11]; bzero(id, 11);
 
 	clear();
 	print_header("Remove Grade");
 	print_color("\nPlease Enter Student ID that you want to Delete data.\n\n", 43);
 
 	while (!check_student_id(id))
-		print_color("Error, please Enter Student ID!\n", 220);
-	if (!find_data(FILENAME, id, &temp))
-		print_color("\nData not found, You may not delete.\n\n", 191);
-	else
+		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
+	if (find_data(FILENAME, id, &temp))
 	{
-		(void) temp;
 		rename(FILENAME, buff_file);
 		old_file = fopen(buff_file, "r");
 		new_file = fopen(FILENAME, "w+");
+		if (!old_file || !new_file)
+		{
+			fclose(old_file);
+			return (0);
+		}
 		while (!feof(old_file))
 		{
 			fscanf(old_file, "%s\n", buff);
@@ -142,4 +143,7 @@ void	remove_data()
 		remove(buff_file);
 		print_color("\nRemove Data Complete!\n\n", 43);
 	}
+	else
+		print_color("\nData not found, You may not delete.\n\n", 191);
+	return (1);
 }

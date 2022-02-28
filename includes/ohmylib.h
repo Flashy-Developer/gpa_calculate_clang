@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ohmylib.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptippaya <ptippaya@student.42bangkok.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/28 13:46:12 by ptippaya          #+#    #+#             */
+/*   Updated: 2022/02/28 13:46:12 by ptippaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef	OHMYLIB_H	/* check if not define ohmylib.h */
 #define	OHMYLIB_H	/* define ohmylib.h */
 #include	<stdio.h>
@@ -11,7 +23,6 @@
 # define clear()	system("clear")
 #endif
 
-#define	sleep()		system("sleep 1");
 #define	FILENAME	"data.txt"
 
 typedef struct	s_student_data
@@ -29,6 +40,7 @@ typedef struct	s_avg_data
 	float	credit;
 }	t_avg_data;
 
+int		remove_data();
 int		calculate(void);
 int		select_menu(void);
 int		check_student_id(char *dest);
@@ -37,8 +49,8 @@ int		check_subject_credit(float *dest);
 int		check_subject_name(char *dest, size_t size);
 int		load_data(char *raw_data, char *user_id, t_student_data *data);
 int		find_data(char *filename, char *user_id, t_student_data *data);
+void	print_welcome();
 void	print_menu(void);
-void	remove_data();
 void	print_header(char *str);
 void	show_grade(t_student_data *data);
 void	reset_data(t_student_data *data);

@@ -48,7 +48,8 @@ int	load_data(char *raw_data, char *user_id, t_student_data *data)
 		}
 		return (1);
 	}
-	return (0);
+	else
+		return (0);
 }
 
 int	find_data(char *filename, char *user_id, t_student_data *data)
@@ -64,7 +65,10 @@ int	find_data(char *filename, char *user_id, t_student_data *data)
 	while (!feof(file) && !found)
 	{
 		fscanf(file, "%s\n", buff);
-		found = load_data(buff, user_id, data);
+		if (!*buff)
+			return (found);
+		else
+			found = load_data(buff, user_id, data);
 	}
 	fclose(file);
 	return (found);

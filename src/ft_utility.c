@@ -15,17 +15,17 @@ void	add_grade()
 {
 	t_student_data stu_data;
 	char	answer;		/*	answer to continue	*/
-	char	show_id[35]; bzero(show_id, 35);
+	char	show_id[33]; bzero(show_id, 33);
 
 	clear();
 	reset_data(&stu_data);
-	print_header("Add Grade");
+	print_header("Add Data");
 	print_color("\nPlease Enter Student ID that you want to add data.\n\n", 43);
 
 	answer = 'y';
 	while (!check_student_id(stu_data.student_id))
 		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
-	sprintf(show_id, "Add Grade Student ID : %s", stu_data.student_id);
+	sprintf(show_id, "Add Data Student ID : %s", stu_data.student_id);
 	remove_data(stu_data.student_id);
 	for(size_t i = 0; i < 10 && answer == 'y'; i++)
 	{
@@ -81,15 +81,15 @@ int	calculate(void)
 {
 	t_student_data	data;
 	t_avg_data		data_avg;
-	char			show_id[40];
+	char			show_id[38]; bzero(show_id, 38);
 
 	clear();
-	print_header("Calculate Grade");
+	print_header("Calculate GPA");
 	print_color("\nPlease Enter Student ID that you want to calculate.\n\n", 43);
 	reset_data(&data);
 	while (!check_student_id(data.student_id))
 		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
-	sprintf(show_id, "Calculate Grade Student ID : %s", data.student_id);
+	sprintf(show_id, "Calculate GPA Student ID : %s", data.student_id);
 	if (find_data(FILENAME, data.student_id, &data))
 	{
 		clear();
@@ -121,7 +121,7 @@ int	remove_data(char *id)
 	if (!*id)
 	{
 		clear();
-		print_header("Remove Grade");
+		print_header("Remove Data");
 		print_color("\nPlease Enter Student ID that you want to Delete data.\n\n", 43);
 
 		id = (char *) malloc (sizeof(char *) * 11);

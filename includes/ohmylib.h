@@ -49,7 +49,7 @@ int		check_subject_grade(float *dest);
 int		check_subject_credit(float *dest);
 int		load_data(char *raw_data, char *user_id, t_student_data *data);
 int		find_data(char *filename, char *user_id, t_student_data *data);
-void	add_grade();
+void	add_data();
 void	print_welcome();
 void	print_menu(void);
 void	print_header(char *str);

@@ -23,7 +23,7 @@ int main(void)
 		switch (choice)
 		{
 			case 1:
-				add_grade();
+				add_data();
 				break;
 
 			case 2:
@@ -31,7 +31,7 @@ int main(void)
 				break;
 
 			case 3:
-				remove_data("\0");
+				remove_data("");
 				break;
 
 			case 4:

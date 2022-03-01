@@ -36,13 +36,12 @@ void	print_header(char *str)
 int	check_student_id(char *dest)
 {
 	char	id[31];
-	size_t	i;
 
 	printf("Enter Student ID : ");
 	scanf("%s", id);
 	if (strlen(id) != 10)
 		return (0);
-	for (i = 0; i < 10; i++)
+	for (size_t i = 0; i < 10; i++)
 		if (!isdigit(id[i]))
 			return (0);
 	strcpy(dest, id);
@@ -68,12 +67,10 @@ int	check_subject_name(char *dest)
 int	check_subject_grade(float *dest)
 {
 	char	src[21];
-	size_t	i;
 
-	i = 0;
 	printf("Enter Subject Grade :\t");
 	scanf("%s", src);
-	for (i = 0; i < 21 && src[i]; i++)
+	for (size_t i = 0; i < 21 && src[i]; i++)
 		if (!(isdigit(src[i]) || src[i] == '.'))
 			return (0);
 	if (*src)
@@ -91,12 +88,10 @@ int	check_subject_grade(float *dest)
 int	check_subject_credit(float *dest)
 {
 	char	src[21];
-	size_t	i;
 
-	i = 0;
 	printf("Enter Subject Credit :\t");
 	scanf("%s", src);
-	for (i = 0; i < 21 && src[i]; i++)
+	for (size_t i = 0; i < 21 && src[i]; i++)
 		if (!(isdigit(src[i]) || src[i] == '.'))
 			return (0);
 	if (*src)

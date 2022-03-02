@@ -13,49 +13,50 @@ void	reset_data(t_student_data *data)
 
 void	add_data()
 {
-	t_student_data stu_data;
-	char	answer;		/*	answer to continue	*/
-	char	show_id[33]; bzero(show_id, 33);
+	t_student_data	data;
+	char			answer;		/*	answer to continue	*/
+	char			show_id[33]; bzero(show_id, 33);
+	size_t			i;
 
 	clear();
-	reset_data(&stu_data);
+	reset_data(&data);
 	print_header("Add Data");
 	print_color("\nPlease Enter Student ID that you want to add data.\n\n", 43);
 
 	answer = 'y';
-	while (!check_student_id(stu_data.student_id))
+	while (!check_student_id(data.student_id))
 		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
-	sprintf(show_id, "Add Data Student ID : %s", stu_data.student_id);
-	for(size_t i = 0; i < 10 && answer == 'y'; i++)
+	sprintf(show_id, "Add Data Student ID : %s", data.student_id);
+	for(i = 0; i < 10 && answer == 'y'; i++)
 	{
 		clear();
 		print_header(show_id);
 		puts("");
-		while (!check_subject_name(stu_data.subject[i]))
+		while (!check_subject_name(data.subject[i]))
 			print_color("Error, please Enter Subject name! (Maximum 30 Alphabet)\n", 220);
-		while (!check_subject_grade(&stu_data.grade[i]))
+		while (!check_subject_grade(&data.grade[i]))
 			print_color("Error, please Enter Grade(float) only! (0.00 to 4.00)\n",220);
-		while (!check_subject_credit(&stu_data.credit[i]))
+		while (!check_subject_credit(&data.credit[i]))
 			print_color("Error, please Enter Credit(float) only! (0.00 to 10.00)\n",220);
 		do
 		{
 			clear();
 			print_header(show_id);
 			puts("");
-			show_grade(&stu_data);
+			show_grade(&data);
 			printf("\nWould you like to add more subject (Y/N) ? or Abort(A):\n");
 			answer = tolower(getchar());
 		}
 		while (answer != 'n' && answer != 'y' && answer != 'a' && i + 1 < 10);
 	}
 	clear();
-	if (answer == 'n')
+	if (answer == 'n' || i == 10)
 	{
 		print_header(show_id);
 		puts("");
-		show_grade(&stu_data);
-		remove_data(stu_data.student_id);
-		write_file(FILENAME, stu_data);
+		show_grade(&data);
+		remove_data(data.student_id);
+		write_file(FILENAME, data);
 		print_color("\nAdd Data: Add Grade Complete!\n\n", 35);
 	}
 }
@@ -120,8 +121,7 @@ int	remove_data(char *id)
 	int				status = 0;
 	FILE			*new_file, *old_file;
 	char 			buff_file[] = "buff.txt";
-	/* size of struct t_student_data + size of float(char) x 2 + end byte */
-	char			buff[sizeof(t_student_data) + 10 + 1];
+	char			buff[sizeof(t_student_data)];
 
 	if (!*id) /* *id == id[0] */
 	{
@@ -129,7 +129,7 @@ int	remove_data(char *id)
 		print_header("Remove Data");
 		print_color("\nPlease Enter Student ID that you want to Delete data.\n\n", 43);
 
-		id = (char *) malloc (sizeof(char *) * 11);
+		id = (char *) malloc (sizeof(char) * 11);
 		if (!id)
 			return (0);
 		while (!check_student_id(id))
@@ -139,6 +139,7 @@ int	remove_data(char *id)
 		status = 1;
 	if (find_data(FILENAME, id, &temp))
 	{
+		remove(buff_file);
 		rename(FILENAME, buff_file);
 		old_file = fopen(buff_file, "r");
 		new_file = fopen(FILENAME, "w+");
@@ -151,7 +152,7 @@ int	remove_data(char *id)
 		while (!feof(old_file))
 		{
 			fscanf(old_file, "%s\n", buff);
-			if (strncmp(id, buff, 10))	// if string id and buff is equal it will return 0 (False)
+			if (strncmp(id, buff, 10))
 				fprintf(new_file, "%s\n", buff);
 		}
 		fclose(old_file);

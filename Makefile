@@ -6,7 +6,7 @@
 #    By: ptippaya <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/29 21:14:06 by ptippaya          #+#    #+#              #
-#    Updated: 2022/02/28 20:30:48 by ptippaya         ###   ########.fr        #
+#    Updated: 2022/03/02 23:34:02 by ptippaya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,5 +43,7 @@ test:
 	@./${OUTPUT}
 	@rm ${OUTPUT}
 
-clear:
+clean:
 	@rm $(shell find . -type f -name '*.out') $(shell find . -type f -name '*.txt') $(shell find . -type f -name '*.exe')
+
+re: clean all

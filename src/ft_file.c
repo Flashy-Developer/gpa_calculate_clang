@@ -27,8 +27,7 @@ void	write_file(char *filename, t_student_data stu_data)
 
 int	find_data(char *filename, char *user_id, t_student_data *data)
 {
-	/* size of struct t_student_data + size of float(char) x 2 + end byte */
-	char	buff[sizeof(t_student_data) + 10 + 1];
+	char	buff[sizeof(t_student_data)];
 	int		found;
 	FILE	*file;
 

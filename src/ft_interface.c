@@ -84,7 +84,6 @@ int	check_subject_grade(float *dest)
 	return (0);
 }
 
-
 int	check_subject_credit(float *dest)
 {
 	char	src[21];
@@ -103,18 +102,6 @@ int	check_subject_credit(float *dest)
 			*dest = 0;
 	}
 	return (0);
-}
-
-void	show_grade(t_student_data *data)
-{
-	for(size_t i = 0; i < 10 && *data->subject[i]; i++)
-	{
-		printf("-------------------------- SUBJECT %d ---------------------------\n", (int) i + 1);
-		printf("Subject Name :\t\t%s\n", data->subject[i]);
-		printf("Subject Grade :\t\t%.2f\n", data->grade[i]);
-		printf("Subject Credit :\t%.2f\n\n", data->credit[i]);
-	}
-	printf("----------------------------------------------------------------\n");
 }
 
 void	print_menu(void)
@@ -148,15 +135,27 @@ int	select_menu(void)
 	return(0);
 }
 
+void	show_grade(t_student_data *data)
+{
+	for(size_t i = 0; i < 10 && *data->subject[i]; i++)
+	{
+		printf("-------------------------- SUBJECT %d ---------------------------\n", (int) i + 1);
+		printf("Subject Name :\t\t%s\n", data->subject[i]);
+		printf("Subject Grade :\t\t%.2f\n", data->grade[i]);
+		printf("Subject Credit :\t%.2f\n\n", data->credit[i]);
+	}
+	printf("----------------------------------------------------------------\n");
+}
+
 #ifndef _WIN32
 void	print_welcome()
 {
 	char LOADING[] = "\n\n\
-                █░░ █▀█ ▄▀█ █▀▄ █ █▄░█ █▀▀ ░ ░ ░\n\
-                █▄▄ █▄█ █▀█ █▄▀ █ █░▀█ █▄█ ▄ ▄ ▄\n\n\n";
+                █   █▀█ ▄▀█ █▀▄ █ █▄ █ █▀▀\n\
+                █▄▄ █▄█ █▀█ █▄▀ █ █ ▀█ █▄█ ▄ ▄ ▄\n\n\n";
 	char GPA_CALCULATOR[] = "\n\n\
-      █▀▀ █▀█ ▄▀█  █▀▀ ▄▀█ █░░ █▀▀ █░█ █░░ ▄▀█ ▀█▀ █▀█ █▀█\n\
-      █▄█ █▀▀ █▀█  █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▄▄ █▀█ ░█░ █▄█ █▀▄\n\n\n";
+      █▀▀ █▀█ ▄▀█  █▀▀ ▄▀█ █   █▀▀ █ █ █   ▄▀█ ▀█▀ █▀█ █▀█\n\
+      █▄█ █▀▀ █▀█  █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▄▄ █▀█  █  █▄█ █▀▄\n\n\n";
 
 	clear();
 	print_color(LOADING, 214);
@@ -164,6 +163,7 @@ void	print_welcome()
 	clear();
 	print_color(GPA_CALCULATOR, 162);
 }
+
 #else
 void print_welcome()
 {

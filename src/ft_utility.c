@@ -2,10 +2,10 @@
 
 void	reset_data(t_student_data *data)
 {
-	memset(data->student_id, 0, 11);
+	bzero(data->student_id, 11);
 	for (size_t i = 0; i < 10; i++)
 	{
-		memset(data->subject[i], 0, 31);
+		bzero(data->subject[i], 31);
 		data->grade[i] = 0;
 		data->credit[i] = 0;
 	}
@@ -60,7 +60,7 @@ void	add_data()
 	}
 }
 
-void calculate_grade(t_avg_data *dest, t_student_data src)
+void	calculate_grade(t_avg_data *dest, t_student_data src)
 {
 	size_t	i;
 	float	total;
@@ -101,8 +101,8 @@ int	calculate(void)
 		show_grade(&data);
 		calculate_grade(&data_avg, data);
 		puts("");
-		printf("Average Grade\t= %.2f\n",data_avg.grade);
-		printf("Total credit\t= %.2f\n",data_avg.credit);
+		printf("Average Grade\t= %.2f\n", data_avg.grade);
+		printf("Total credit\t= %.2f\n", data_avg.credit);
 		puts("");
 		return (1);
 	}
@@ -120,7 +120,8 @@ int	remove_data(char *id)
 	int				status = 0;
 	FILE			*new_file, *old_file;
 	char 			buff_file[] = "buff.txt";
-	char			buff[sizeof(t_student_data) + 10 + 1];	// size of struct t_student_data + size of float(char) x 2 + end byte
+	/* size of struct t_student_data + size of float(char) x 2 + end byte */
+	char			buff[sizeof(t_student_data) + 10 + 1];
 
 	if (!*id) /* *id == id[0] */
 	{

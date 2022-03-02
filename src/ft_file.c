@@ -1,28 +1,51 @@
 #include	"../includes/ohmylib.h"
 
-void write_file(char *filename, t_student_data stu_data)
+void	write_file(char *filename, t_student_data stu_data)
 {
 	FILE *fp_add_grade;
-	fp_add_grade=fopen(filename,"a+");
-	fprintf(fp_add_grade,"%s",stu_data.student_id);
-	fprintf(fp_add_grade,",");
+	fp_add_grade = fopen(filename,"a+");
+	fprintf(fp_add_grade, "%s", stu_data.student_id);
+	fprintf(fp_add_grade, ",");
 	for(size_t i = 0; i < 10; i++)
 	{
 		if(*stu_data.subject[i])
 		{
-			fprintf(fp_add_grade,"%s",stu_data.subject[i]);
-			fprintf(fp_add_grade,",");
-			fprintf(fp_add_grade,"%.2f",stu_data.grade[i]);
-			fprintf(fp_add_grade,",");
-			fprintf(fp_add_grade,"%.2f",stu_data.credit[i]);
+			fprintf(fp_add_grade, "%s", stu_data.subject[i]);
+			fprintf(fp_add_grade, ",");
+			fprintf(fp_add_grade, "%.2f", stu_data.grade[i]);
+			fprintf(fp_add_grade, ",");
+			fprintf(fp_add_grade, "%.2f", stu_data.credit[i]);
 		}
 		else
-			fprintf(fp_add_grade,"-,-,-");
+			fprintf(fp_add_grade, "-,-,-");
 		if (i < 9)
-			fprintf(fp_add_grade,",");
+			fprintf(fp_add_grade, ",");
 	}
-	fprintf(fp_add_grade,"\n");
-    fclose(fp_add_grade);
+	fprintf(fp_add_grade, "\n");
+	fclose(fp_add_grade);
+}
+
+int	find_data(char *filename, char *user_id, t_student_data *data)
+{
+	/* size of struct t_student_data + size of float(char) x 2 + end byte */
+	char	buff[sizeof(t_student_data) + 10 + 1];
+	int		found;
+	FILE	*file;
+
+	found = 0;
+	file = fopen(filename, "r");
+	if (!file)
+		return (0);
+	while (!feof(file) && !found)
+	{
+		fscanf(file, "%s\n", buff);
+		if (!*buff)
+			return (found);
+		else
+			found = load_data(buff, user_id, data);
+	}
+	fclose(file);
+	return (found);
 }
 
 int	load_data(char *raw_data, char *user_id, t_student_data *data)
@@ -50,26 +73,4 @@ int	load_data(char *raw_data, char *user_id, t_student_data *data)
 	}
 	else
 		return (0);
-}
-
-int	find_data(char *filename, char *user_id, t_student_data *data)
-{
-	char	buff[sizeof(t_student_data) + 10 + 1];	// size of struct t_student_data + size of float(char) x 2 + end byte
-	int		found;
-	FILE	*file;
-
-	found = 0;
-	file = fopen(filename, "r");
-	if (!file)
-		return (0);
-	while (!feof(file) && !found)
-	{
-		fscanf(file, "%s\n", buff);
-		if (!*buff)
-			return (found);
-		else
-			found = load_data(buff, user_id, data);
-	}
-	fclose(file);
-	return (found);
 }

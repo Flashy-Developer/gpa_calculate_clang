@@ -53,7 +53,7 @@ void	print_header(char *str);
 void	show_grade(t_student_data *data);
 void	reset_data(t_student_data *data);
 void	print_color(char *str, unsigned char color);
+void	assign_grade(t_avg_data *dest, t_student_data src);
 void	write_file(char *filename, t_student_data stu_data);
-void	calculate_grade(t_avg_data *dest, t_student_data src);
 
 #endif

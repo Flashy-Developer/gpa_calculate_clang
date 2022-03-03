@@ -52,26 +52,6 @@ void	add_data()
 	}
 }
 
-void	calculate_grade(t_avg_data *dest, t_student_data src)
-{
-	size_t	i;
-	float	total;
-	float	credit;
-
-	credit = 0;
-	total = 0;
-	i = 0;
-	while (i < 10 && src.subject[i][0] != 0)
-	{
-		total += (src.grade[i] * src.credit[i]);
-		credit += src.credit[i];
-		i++;
-	}
-	strcpy(dest->student_id, src.student_id);
-	dest->grade = total / credit;
-	dest->credit = credit;
-}
-
 int	calculate(void)
 {
 	t_student_data	data;
@@ -92,7 +72,7 @@ int	calculate(void)
 		print_header(show_id);
 		puts("");
 		show_grade(&data);
-		calculate_grade(&data_avg, data);
+		assign_grade(&data_avg, data);
 		puts("");
 		printf("Average Grade\t= %.2f\n", data_avg.grade);
 		printf("Total credit\t= %.2f\n", data_avg.credit);

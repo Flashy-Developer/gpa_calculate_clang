@@ -62,7 +62,6 @@ int	calculate(void)
 	reset_data(&data);
 	print_header("Calculate GPA");
 	print_color("\nPlease Enter Student ID that you want to calculate.\n\n", 43);
-	reset_data(&data);
 	while (!check_student_id(data.student_id))
 		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
 	sprintf(show_id, "Calculate GPA Student ID : %s", data.student_id);

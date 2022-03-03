@@ -86,7 +86,6 @@ int	calculate(void)
 	while (!check_student_id(data.student_id))
 		print_color("Error, please Enter Student ID! (10 digit)\n", 220);
 	sprintf(show_id, "Calculate GPA Student ID : %s", data.student_id);
-	printf("find = %d load = %d", find_data(FILENAME, data.student_id), load_data(FILENAME, data.student_id, &data));
 	if (find_data(FILENAME, data.student_id) && load_data(FILENAME, data.student_id, &data))
 	{
 		clear();

@@ -25,51 +25,64 @@ void	write_file(char *filename, t_student_data stu_data)
 	fclose(fp_add_grade);
 }
 
-int	find_data(char *filename, char *user_id, t_student_data *data)
+int	find_data(char *filename, char *user_id)
 {
 	char	buff[sizeof(t_student_data)];
-	int		found;
 	FILE	*file;
 
-	found = 0;
 	file = fopen(filename, "r");
 	if (!file)
 		return (0);
-	while (!feof(file) && !found)
+	while (!feof(file))
 	{
 		fscanf(file, "%s\n", buff);
-		if (!*buff)
-			return (found);
-		else
-			found = load_data(buff, user_id, data);
+		if (!strncmp(buff, user_id, 10))
+		{
+			fclose(file);
+			return (1);
+		}
 	}
 	fclose(file);
-	return (found);
+	return (0);
 }
 
-int	load_data(char *raw_data, char *user_id, t_student_data *data)
+int	load_data(char *filename, char *user_id, t_student_data *data)
 {
-	char	*ptr_str;
+	FILE	*file;
 	char	*token;
+	char	*ptrstr;
+	char	buff[sizeof(t_student_data)];
 
-	ptr_str = raw_data;
-	token = strtok_r(ptr_str, ",", &ptr_str);
-	if (!strcmp(user_id, token))
+	file = fopen(filename, "r");
+	if (!file)
+		return (0);
+	while (!feof(file))
 	{
+		bzero(buff, sizeof(t_student_data));
+		fscanf(file, "%s\n", buff);
+		if (!strncmp(buff, user_id, 10))
+			break;
+	}
+	fclose(file);
+	if (strncmp(buff, user_id, 10))
+		return (0);
+	else
+	{
+		reset_data(data);
+		ptrstr = buff;
+		token = strtok_r(ptrstr, ",", &ptrstr);
 		strcpy(data->student_id, token);
 		for (size_t i = 0; token && i < 10; i++)
 		{
-			token = strtok_r(ptr_str, ",", &ptr_str);
+			token = strtok_r(ptrstr, ",", &ptrstr);
 			if (*token == '-')
 				break ;
 			strcpy(data->subject[i], token);
-			token = strtok_r(ptr_str, ",", &ptr_str);
+			token = strtok_r(ptrstr, ",", &ptrstr);
 			data->grade[i] = atof(token);
-			token = strtok_r(ptr_str, ",", &ptr_str);
+			token = strtok_r(ptrstr, ",", &ptrstr);
 			data->credit[i] = atof(token);
 		}
 		return (1);
 	}
-	else
-		return (0);
 }

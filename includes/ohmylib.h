@@ -1,14 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ohmylib.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ptippaya <ptippaya@student.42bangkok.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 13:46:12 by ptippaya          #+#    #+#             */
-/*   Updated: 2022/02/28 13:46:12 by ptippaya         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**************************************************************/
+/*                                                            */
+/*    █▀▀ █▀█ ▄▀█  █▀▀ ▄▀█ █   █▀▀ █ █ █   ▄▀█ ▀█▀ █▀█ █▀█    */
+/*    █▄█ █▀▀ █▀█  █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▄▄ █▀█  █  █▄█ █▀▄    */
+/*                                                            */
+/**************************************************************/
 
 #ifndef	OHMYLIB_H	/* check if not define ohmylib.h */
 #define	OHMYLIB_H	/* define ohmylib.h */
@@ -42,13 +37,15 @@ typedef struct	s_avg_data
 
 int		calculate(void);
 int		select_menu(void);
+int		select_add_menu(void);
 int		remove_data(char id[11]);
 int		check_student_id(char *dest);
-int		check_subject_name(char *dest);
 int		check_subject_grade(float *dest);
 int		check_subject_credit(float *dest);
-int		load_data(char *raw_data, char *user_id, t_student_data *data);
-int		find_data(char *filename, char *user_id, t_student_data *data);
+int		find_data(char *filename, char *user_id);
+int		is_dup(char *subject_name, t_student_data data);
+int		check_subject_name(char *dest, t_student_data data);
+int		load_data(char *filename, char *user_id, t_student_data *data);
 void	add_data();
 void	print_welcome();
 void	print_menu(void);

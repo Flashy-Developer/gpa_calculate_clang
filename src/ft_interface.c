@@ -48,14 +48,14 @@ int	check_student_id(char *dest)
 	return (1);
 }
 
-int	check_subject_name(char *dest)
+int	check_subject_name(char *dest, t_student_data data)
 {
 	char	buffer[51];
 
 	bzero(buffer, 51);
 	printf("Enter Subject Name :\t");
 	scanf("%s", buffer);
-	if (strlen(buffer) > 30)
+	if (strlen(buffer) > 30 || is_dup(buffer, data))
 		return (0);
 	else
 	{
@@ -104,6 +104,27 @@ int	check_subject_credit(float *dest)
 	return (0);
 }
 
+int	select_add_menu(void)
+{
+	char	src[21];
+
+	printf("Would you like to add more subject (Y/N) ? or Abort(A):\n");
+	scanf("%s", src);
+	if (strlen(src) != 1)
+		return (0);
+	switch (tolower(*src))
+	{
+		case 'y':
+			return (1);
+		case 'n':
+			return (2);
+		case 'a':
+			return (3);
+		default:
+			return (0);
+	}
+}
+
 void	print_menu(void)
 {
 	print_color("---------------------- Select the Process ----------------------\n", 81);
@@ -126,6 +147,8 @@ int	select_menu(void)
 	print_menu();
 	printf("Enter Choice : ");
 	scanf("%s", str);
+	if (strlen(str) != 1)
+		return (0);
 	for (size_t i = 0; i < 31 && str[i]; i++)
 		if (!isdigit(str[i]))
 			return (0);
@@ -146,27 +169,3 @@ void	show_grade(t_student_data *data)
 	}
 	printf("----------------------------------------------------------------\n");
 }
-
-#ifndef _WIN32
-void	print_welcome()
-{
-	char LOADING[] = "\n\n\
-                █   █▀█ ▄▀█ █▀▄ █ █▄ █ █▀▀\n\
-                █▄▄ █▄█ █▀█ █▄▀ █ █ ▀█ █▄█ ▄ ▄ ▄\n\n\n";
-	char GPA_CALCULATOR[] = "\n\n\
-      █▀▀ █▀█ ▄▀█  █▀▀ ▄▀█ █   █▀▀ █ █ █   ▄▀█ ▀█▀ █▀█ █▀█\n\
-      █▄█ █▀▀ █▀█  █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▄▄ █▀█  █  █▄█ █▀▄\n\n\n";
-
-	clear();
-	print_color(LOADING, 214);
-	system("sleep 0.6");
-	clear();
-	print_color(GPA_CALCULATOR, 162);
-}
-
-#else
-void print_welcome()
-{
-	print_header("GPA CALCULATOR");
-}
-#endif

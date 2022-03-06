@@ -75,7 +75,7 @@ int	load_data(char *filename, char *user_id, t_student_data *data)
 		for (size_t i = 0; token && i < 10; i++)
 		{
 			token = strtok_r(ptrstr, ",", &ptrstr);
-			if (*token == '-')
+			if (!strcmp(token, "-"))
 				break ;
 			strcpy(data->subject[i], token);
 			token = strtok_r(ptrstr, ",", &ptrstr);

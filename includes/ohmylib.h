@@ -38,7 +38,7 @@ typedef struct	s_avg_data
 int		calculate(void);
 int		select_menu(void);
 int		select_add_menu(void);
-int		remove_data(char id[11]);
+int		remove_data(char *id);
 int		check_student_id(char *dest);
 int		check_subject_grade(float *dest);
 int		check_subject_credit(float *dest);

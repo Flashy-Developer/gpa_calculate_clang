@@ -6,7 +6,7 @@ This is our first Computer Science project which can save, remove files and calc
 * for windows make sure you have git installed.
 * run this command.
 ```
-git clone https://github.com/PKGzGMTH/kusrc_project
+git clone https://github.com/Flashy-Developer/gpa_calculate_clang
 ```
 
 ## How to run this Project
